@@ -72,7 +72,44 @@ export const createUser = async ({
   }
 };
 
-export const updateUser = () => {};
+export const updateUser = async ({
+  params,
+  response,
+  request,
+}: {
+  params: { id: string };
+  response: Response;
+  request: Request;
+}) => {
+  const userUpdate = users.filter((user) => user.id === params.id);
+  if (!userUpdate) {
+    response.status = 404;
+    response.body = {
+      message: "User not found",
+    };
+  } else {
+    const body = await request.body();
+    const updatedUser = body.value;
+
+    users = users.map((user) =>
+      user.id === params.id
+        ? { ...user, ...updatedUser }
+        : (response.status = 404)
+    );
+
+    if (response.status === 404) {
+      response.body = {
+        message: "User not found",
+      };
+    } else {
+      response.status = 200;
+      response.body = {
+        message: "User updated",
+        users,
+      };
+    }
+  }
+};
 
 export const deleteUser = ({
   params,
