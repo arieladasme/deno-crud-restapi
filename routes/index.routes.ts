@@ -10,5 +10,6 @@ router.get("/", ({ response }) => {
 router.get("/users/:id", crud.getUser);
 router.get("/users", crud.getUsers);
 router.post("/users", crud.createUser);
+router.delete("/users/:id", crud.deleteUser);
 
 export default router;

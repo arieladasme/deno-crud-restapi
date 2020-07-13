@@ -6,7 +6,7 @@ interface User {
   name: string;
 }
 
-const users: User[] = [
+let users: User[] = [
   {
     id: "1",
     name: "Desmond",
@@ -74,4 +74,19 @@ export const createUser = async ({
 
 export const updateUser = () => {};
 
-export const deleteUser = () => {};
+export const deleteUser = ({
+  params,
+  response,
+}: {
+  params: { id: string };
+  response: Response;
+}) => {
+  users = users.filter((user) => user.id !== params.id);
+
+  response.status = 200;
+
+  response.body = {
+    message: "User deleted",
+    users,
+  };
+};
