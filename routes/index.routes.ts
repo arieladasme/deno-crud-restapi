@@ -7,6 +7,7 @@ router.get("/", ({ response }) => {
   response.body = "DENO API";
 });
 
+router.get("/users/:id", crud.getUser);
 router.get("/users", crud.getUsers);
 router.post("/users", crud.createUser);
 
