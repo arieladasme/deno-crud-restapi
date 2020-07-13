@@ -8,5 +8,6 @@ router.get("/", ({ response }) => {
 });
 
 router.get("/users", crud.getUsers);
+router.post("/users", crud.createUser);
 
 export default router;
